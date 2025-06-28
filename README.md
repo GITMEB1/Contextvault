@@ -95,26 +95,26 @@ ContextVault is a scalable, intelligent system for storing, organizing, and retr
    cd ContextVAULT
    ```
 
-2. **Install dependencies**
+2. **Backend Setup**
    ```bash
+   cd backend
    npm install
-   ```
-
-3. **Environment Configuration**
-   ```bash
    cp config.env.example .env
    # Edit .env with your configuration
-   ```
-
-4. **Start the server**
-   ```bash
    npm run dev  # Development mode with hot reload
-   npm start    # Production mode
    ```
 
-5. **Access the API**
-   - API: `http://localhost:8000`
-   - Documentation: `http://localhost:8000/api-docs`
+3. **Frontend Setup** (in a new terminal)
+   ```bash
+   cd frontend
+   npm install
+   npm run dev  # Start Vite development server
+   ```
+
+4. **Access the Application**
+   - Frontend: `http://localhost:3000`
+   - Backend API: `http://localhost:8000`
+   - API Documentation: `http://localhost:8000/api-docs`
    - Health Check: `http://localhost:8000/v1/health`
 
 ### Environment Variables
@@ -152,9 +152,10 @@ AUTO_GENERATE_EMBEDDINGS=true
 ## 🚀 Development
 
 ### Development Mode
-The application supports a development mode with mock data, allowing you to run and test without a database:
+The backend supports a development mode with mock data, allowing you to run and test without a database:
 
 ```bash
+cd backend
 npm run dev
 ```
 
@@ -167,11 +168,12 @@ Features in development mode:
 
 ### Docker Support
 ```bash
-# Build and run with Docker
-docker build -t contextvault .
-docker run -p 8000:8000 contextvault
+# Build and run backend with Docker
+cd backend
+docker build -t contextvault-backend .
+docker run -p 8000:8000 contextvault-backend
 
-# Or use Docker Compose
+# Or use Docker Compose (from root directory)
 docker-compose up
 ```
 
