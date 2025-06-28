@@ -2,6 +2,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuthStore } from '../store/authStore';
 
+// Updated to match your backend structure
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/v1';
 
 export const api = axios.create({
@@ -33,7 +34,7 @@ api.interceptors.response.use(
 
     if (error.response) {
       const { status, data } = error.response;
-      let errorMessage = data.error?.message || 'An unexpected error occurred.';
+      let errorMessage = data.error?.message || data.message || 'An unexpected error occurred.';
 
       switch (status) {
         case 400:
@@ -42,7 +43,7 @@ api.interceptors.response.use(
         case 401:
           errorMessage = errorMessage || 'Unauthorized. Please log in again.';
           clearAuth();
-          if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
+          if (window.location.pathname !== '/login' && window.location.pathname !== '/register' && window.location.pathname !== '/') {
             window.location.href = '/login';
           }
           break;
@@ -70,7 +71,7 @@ api.interceptors.response.use(
       }
       return Promise.reject(new Error(errorMessage));
     } else if (error.request) {
-      toast.error('No response from server. Please check your internet connection.');
+      toast.error('No response from server. Please check if the backend is running on localhost:8000');
       return Promise.reject(new Error('No response from server.'));
     } else {
       toast.error('Request setup error. Please try again.');
