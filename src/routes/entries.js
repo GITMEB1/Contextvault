@@ -5,6 +5,7 @@ const { auth } = require('../middleware/auth');
 const { APIError, asyncHandler } = require('../middleware/errorHandler');
 const logger = require('../utils/logger');
 const config = require('../config/config');
+const vectorSearchService = require('../services/vectorSearchService');
 
 const router = express.Router();
 
@@ -133,6 +134,14 @@ router.post('/', [
   const entry = new Entry(entryData);
   await entry.save();
 
+  // Generate embeddings for the new entry (async, don't wait)
+  vectorSearchService.generateEntryEmbeddings(entry).catch(error => {
+    logger.warn('Failed to generate embeddings for new entry', {
+      entryId: entry._id,
+      error: error.message
+    });
+  });
+
   // Update user stats
   req.user.stats.totalEntries += 1;
   await req.user.save();
@@ -206,6 +215,16 @@ router.put('/:id', [
   entry.logChange('update', req.user._id, req.body);
 
   await entry.save();
+
+  // Regenerate embeddings if content was changed (async, don't wait)
+  if (req.body.content) {
+    vectorSearchService.generateEntryEmbeddings(entry).catch(error => {
+      logger.warn('Failed to regenerate embeddings for updated entry', {
+        entryId: entry._id,
+        error: error.message
+      });
+    });
+  }
 
   logger.info('Entry updated', {
     entryId: entry._id,

@@ -43,6 +43,8 @@ const config = {
   embeddingDimension: parseInt(process.env.EMBEDDING_DIMENSION, 10) || 1536,
   vectorSimilarityThreshold: parseFloat(process.env.VECTOR_SIMILARITY_THRESHOLD) || 0.7,
   maxSearchResults: parseInt(process.env.MAX_SEARCH_RESULTS, 10) || 50,
+  useLocalEmbeddings: process.env.USE_LOCAL_EMBEDDINGS === 'true',
+  autoGenerateEmbeddings: process.env.AUTO_GENERATE_EMBEDDINGS !== 'false',
 
   // File upload configuration
   maxFileSize: parseInt(process.env.MAX_FILE_SIZE, 10) || 10485760, // 10MB
