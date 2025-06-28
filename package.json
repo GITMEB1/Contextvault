@@ -1,0 +1,29 @@
+{
+  "name": "contextvault",
+  "version": "1.0.0",
+  "description": "Intelligent Conversational Data Management System",
+  "scripts": {
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm run build && npm run preview",
+    "build": "cd frontend && npm run build",
+    "test": "cd backend && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "ai",
+    "search",
+    "conversational-data",
+    "semantic-search",
+    "vector-search"
+  ],
+  "author": "ContextVault Team",
+  "license": "MIT"
+}
