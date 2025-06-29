@@ -2,9 +2,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 // Create API instance with proper base URL
+// Use HTTP to match the backend protocol and avoid mixed content issues
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/v1';
-
-console.log('🔧 API Base URL:', API_BASE_URL);
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -21,46 +20,29 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    
-    console.log(`🌐 API Request: ${config.method?.toUpperCase()} ${config.url}`);
     return config;
   },
   (error) => {
-    console.error('❌ Request interceptor error:', error);
+    console.error('Request interceptor error:', error);
     return Promise.reject(error);
   },
 );
 
 // Response interceptor to handle errors globally
 api.interceptors.response.use(
-  (response) => {
-    console.log(`✅ API Response: ${response.status} ${response.config.url}`);
-    return response;
-  },
+  (response) => response,
   (error) => {
-    console.error('❌ API Error:', error);
+    console.error('API Error:', error);
 
     // Handle network errors
     if (!error.response) {
-      let errorMessage = 'Connection failed';
-      
       if (error.code === 'ECONNABORTED') {
-        errorMessage = 'Request timeout. Please try again.';
+        toast.error('Request timeout. Please try again.');
       } else if (error.message === 'Network Error') {
-        errorMessage = 'Cannot connect to backend. Please check if the server is running on localhost:8000';
-      } else if (error.code === 'ERR_NETWORK') {
-        errorMessage = 'Network error. Please check your connection and ensure the backend is running.';
+        toast.error('Mixed content error detected. Please access the app via HTTP at http://localhost:3000 instead of HTTPS.');
       } else {
-        errorMessage = `Connection error: ${error.message}`;
+        toast.error('Connection failed. Please check your internet connection.');
       }
-      
-      console.error('🔌 Network Error Details:', {
-        code: error.code,
-        message: error.message,
-        config: error.config
-      });
-      
-      toast.error(errorMessage);
       return Promise.reject(error);
     }
 
