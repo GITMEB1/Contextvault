@@ -7,6 +7,14 @@
     <title>ContextVault - Intelligent Knowledge Management</title>
     <meta name="description" content="AI-powered conversational data management with semantic search capabilities" />
     
+    <!-- Protocol redirect script - must be first -->
+    <script>
+      // Redirect HTTPS to HTTP to avoid mixed content errors with backend
+      if (location.protocol === 'https:' && location.hostname === 'localhost') {
+        location.replace('http:' + location.href.substring(location.protocol.length));
+      }
+    </script>
+    
     <!-- Preload critical resources -->
     <link rel="preconnect" href="http://localhost:8000" />
     
