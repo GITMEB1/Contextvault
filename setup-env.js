@@ -1,5 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const envContent = `# Server Configuration
 NODE_ENV=development
@@ -61,4 +66,4 @@ fs.writeFileSync(backendEnvPath, envContent);
 
 console.log('✅ Created backend/.env file successfully!');
 console.log('🔐 JWT Secret configured with secure random key');
-console.log('🚀 Ready to start with Docker!'); 
+console.log('🚀 Ready to start with Docker!');
