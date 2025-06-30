@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
+    https: false, // Explicitly set to false to ensure HTTP protocol
   },
   css: {
     postcss: './postcss.config.js',
