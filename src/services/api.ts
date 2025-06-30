@@ -39,7 +39,7 @@ api.interceptors.response.use(
       if (error.code === 'ECONNABORTED') {
         toast.error('Request timeout. Please try again.');
       } else if (error.message === 'Network Error') {
-        toast.error('Mixed content error detected. Please access the app via HTTP at http://localhost:3000 instead of HTTPS.');
+        toast.error('Cannot connect to backend. Make sure the backend is running on http://localhost:8000');
       } else {
         toast.error('Connection failed. Please check your internet connection.');
       }

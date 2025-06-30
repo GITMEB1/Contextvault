@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    host: true,
-    https: false, // Explicitly set to false to ensure HTTP protocol
+    host: '0.0.0.0',
+    https: false,
   },
   css: {
     postcss: './postcss.config.js',
