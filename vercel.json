@@ -19,7 +19,7 @@
     }
   ],
   "env": {
-    "VITE_API_BASE_URL": "https://your-backend-api-url.com/v1"
+    "VITE_API_BASE_URL": "https://contextvault-backend-production.up.railway.app/v1"
   },
   "functions": {},
   "regions": ["cle1"],
