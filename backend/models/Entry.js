@@ -5,8 +5,7 @@ const entrySchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: [true, 'User ID is required'],
-    index: true
+    required: [true, 'User ID is required']
   },
   
   // Source information
@@ -44,8 +43,7 @@ const entrySchema = new mongoose.Schema({
   metadata: {
     timestamp: {
       type: Date,
-      default: Date.now,
-      index: true
+      default: Date.now
     },
     tags: [{
       type: String,
@@ -92,18 +90,15 @@ const entrySchema = new mongoose.Schema({
   privacy: {
     containsPii: {
       type: Boolean,
-      default: false,
-      index: true
+      default: false
     },
     sensitivityLevel: {
       type: String,
       enum: ['low', 'medium', 'high'],
-      default: 'low',
-      index: true
+      default: 'low'
     },
     retentionDate: {
-      type: Date,
-      index: true
+      type: Date
     },
     anonymized: {
       type: Boolean,
