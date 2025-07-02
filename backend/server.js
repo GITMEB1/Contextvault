@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -22,6 +23,9 @@ const app = express();
 
 // Trust proxy for rate limiting behind reverse proxy
 app.set('trust proxy', 1);
+
+// Compression middleware (now that we have more resources)
+app.use(compression());
 
 // Security middleware
 app.use(helmet({

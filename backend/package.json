@@ -6,14 +6,18 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "dev:debug": "nodemon --inspect server.js",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "docker:build": "docker build -t contextvault-api .",
     "docker:run": "docker run -p 8000:8000 contextvault-api",
     "railway:deploy": "railway up",
-    "postinstall": "echo 'Backend dependencies installed successfully'"
+    "postinstall": "echo 'Backend dependencies installed successfully'",
+    "analyze": "npx madge --circular --extensions js src/",
+    "security": "npm audit && npx audit-ci --config audit-ci.json"
   },
   "keywords": [
     "conversational-ai",
@@ -47,7 +51,9 @@
     "uuid": "^9.0.1",
     "openai": "^4.20.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "multer": "^1.4.5-lts.1",
+    "compression": "^1.7.4"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
@@ -58,6 +64,10 @@
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
-    "@types/jest": "^29.5.8"
+    "@types/jest": "^29.5.8",
+    "madge": "^6.1.0",
+    "audit-ci": "^6.6.1",
+    "clinic": "^11.0.0",
+    "autocannon": "^7.12.0"
   }
 } 

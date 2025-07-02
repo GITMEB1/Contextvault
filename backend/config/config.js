@@ -47,10 +47,19 @@ const config = {
   autoGenerateEmbeddings: process.env.AUTO_GENERATE_EMBEDDINGS !== 'false',
 
   // File upload configuration
-  maxFileSize: parseInt(process.env.MAX_FILE_SIZE, 10) || 10485760, // 10MB
+  maxFileSize: parseInt(process.env.MAX_FILE_SIZE, 10) || 52428800, // 50MB instead of 10MB
   allowedFileTypes: process.env.ALLOWED_FILE_TYPES 
     ? process.env.ALLOWED_FILE_TYPES.split(',') 
-    : ['application/json', 'text/plain'],
+    : [
+        'application/json', 
+        'text/plain', 
+        'text/csv', 
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+        'text/markdown',
+        'application/xml'
+      ],
 
   // Privacy & compliance
   enableAuditLogging: process.env.ENABLE_AUDIT_LOGGING === 'true',
