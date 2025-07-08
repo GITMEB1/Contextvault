@@ -13,8 +13,9 @@ RUN apk add --no-cache \
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production && npm cache clean --force
+# Install dependencies (use npm install if ci fails)
+RUN npm ci --only=production || npm install --only=production
+RUN npm cache clean --force
 
 # Copy source code
 COPY . .
@@ -36,4 +37,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 ENTRYPOINT ["dumb-init", "--"]
 
 # Start the application
-CMD ["node", "src/server.js"] 
+CMD ["node", "server.js"] 
